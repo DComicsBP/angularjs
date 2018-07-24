@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+            <script src="./mainController.js"></script>
+            <script src="./connection.js"></script>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <meta charset="utf-8">
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+            <link rel="stylesheet" href="/style.css">        
+        
+    
+    </head>
+<body >
+<div ng-app="myApp" ng-controller="mainController" style="width: 70%; margin: 0 auto;">
+    <br>
+    <br>
+
+        <h1>{{title}}</h1> 
+   
+<div class="col-md-5 col-md-offset-5">
+   
+    <table class="table table-striped">
+        <tr>
+            <th></th>
+            <th>
+                Nome 
+            </th>
+            <th>
+                Telefone
+            </th>
+            <th>
+                Operadora
+            </th>
+            <th>
+                Cor 
+            </th>
+            <th>
+                Editar
+            </th>
+           
+
+        </tr>
+        <tr ng-repeat="contato in contatos" ng-class="{selecionado: contato.Selecionado}" ng-style="">
+                    <th><input type="checkbox" ng-model="contato.Selecionado"/></th>
+                    <td >{{contato.Nome}}</td>
+                    <td>{{contato.Telefone}}</td>   
+                    <td>{{contato.Operadora.Nome || contato.Operadora}}</td>
+                    <td><div style="width:15px; height: 15px;" ng-style="{'background-color': contato.Cor.Nome || contato.Cor}"></div></td>
+                    <td><button class="btn btn-warning" ng-click="setContato()">Editar</button></td>
+        </tr>
+
+      
+    </table>
+
+    <br>
+    <br>
+<hr style="color: black; margin: 10px;">
+<br>
+    
+<h4>Adicione um novo contato</h4>
+        <input type="text"  placeholder="Adicione um Nome" ng-model = "contato.Nome"/><br><br>
+        <input type="text" placeholder="Adicionoe um telefone" ng-model="contato.Telefone"/><br><br>
+        <h5>Escolha a operadora:</h5>
+            <select class="form-controll" ng-model="contato.Operadora" ng-options="operadora.Nome group by operadora.Categoria for operadora in operadora track by operadora.ID">
+                <option value="">Escolha a operadora:</option>
+            </select>
+            <br><br>
+            Selecione a categoria do contato: 
+
+            <select ng-model="contato.Cor" ng-options="cor.Tom for cor in cor track by cor.ID">
+            </select>
+            <br>
+            <br>
+            <button  class="btn btn-success"  ng-click="enviar(contato)" ng-disabled="!contato.Nome || !contato.Telefone || !contato.Operadora">Enviar</button>  
+            <button  class="btn btn-danger"  ng-click="apagar(contatos) " >Apagar Contato</button>  
+            <h1>Teste</h1> 
+            
+</div>  
+
+</div>
+
+</body>
+</html>
